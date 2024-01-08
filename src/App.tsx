@@ -16,7 +16,7 @@ const App = () => {
               route.isPrivate ? (
                 <PrivateRouteWrapper component={route.component} layout={route.layout} />
               ) : (
-                <route.component />
+                <PublicRouteWrapper component={route.component} layout={route.layout} />
               )
             }
           />
@@ -38,6 +38,16 @@ const PrivateRouteWrapper: React.FC<PrivateRouteWrapperProps> = ({ component, la
     React.createElement(layout, null, React.createElement(component))
   ) : (
     <Navigate to="/auth/login" />
+  )
+}
+
+const PublicRouteWrapper: React.FC<PrivateRouteWrapperProps> = ({ component, layout }) => {
+  const isLoggedIn = true
+
+  return isLoggedIn ? (
+    React.createElement(layout, null, React.createElement(component))
+  ) : (
+    <Navigate to="/home" />
   )
 }
 
