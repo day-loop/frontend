@@ -4,37 +4,21 @@ import { mainRouteList } from "./app/routes/mainRoutes"
 import "./App.scss"
 import React from "react"
 
-function App() {
+const App = () => {
   return (
-    // <Router>
-    //   <Routes>
-    //     {mainRouteList.map((route, index: number) => (
-    //       <Route
-    //         key={index}
-    //         path={route.path}
-    //         element={
-    //           <route.layout>
-    //             {route.isPrivate ? (
-    //               <PrivateRoute component={route.component} />
-    //             ) : (
-    //               <route.component />
-    //             )}
-    //           </route.layout>
-    //         }
-    //       />
-    //     ))}
-    //   </Routes>
-    // </Router>
-
     <Router>
       <Routes>
         {mainRouteList.map((route, index: number) => (
-          <CustomRoute
+          <Route
             key={index}
             path={route.path}
-            component={route.component}
-            layout={route.layout}
-            private={route.isPrivate}
+            element={
+              route.isPrivate ? (
+                <PrivateRouteWrapper component={route.component} layout={route.layout} />
+              ) : (
+                <route.component />
+              )
+            }
           />
         ))}
       </Routes>
@@ -42,30 +26,18 @@ function App() {
   )
 }
 
-interface CustomRouteProps {
-  path: string
-  component: any
-  layout: any
-  private: boolean
+interface PrivateRouteWrapperProps {
+  component: React.ComponentType<any>
+  layout: React.ComponentType<any>
 }
 
-const CustomRoute: React.FC<CustomRouteProps> = ({
-  path,
-  component,
-  layout,
-  private: isPrivate
-}) => {
-  const isLoggedIn = true // Burada gerçek bir oturum kontrolü yapmalısınız
+const PrivateRouteWrapper: React.FC<PrivateRouteWrapperProps> = ({ component, layout }) => {
+  const isLoggedIn = false
 
-  if (isPrivate && !isLoggedIn) {
-    return <Navigate to="/auth/login" />
-  }
-
-  return (
-    <Route
-      path={path}
-      element={React.createElement(layout, null, React.createElement(component))}
-    />
+  return isLoggedIn ? (
+    React.createElement(layout, null, React.createElement(component))
+  ) : (
+    <Navigate to="/auth/login" />
   )
 }
 
