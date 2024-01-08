@@ -1,8 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-dom"
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom"
 import { mainRouteList } from "./app/routes/mainRoutes"
 import "./App.scss"
-import React from "react"
+import PrivateRouteWrapper from "./app/shared/auth/PrivateRouteWrapper"
+import PublicRouteWrapper from "./app/shared/auth/PublicRouteWrapper"
 
 const App = () => {
   return (
@@ -23,31 +24,6 @@ const App = () => {
         ))}
       </Routes>
     </Router>
-  )
-}
-
-interface PrivateRouteWrapperProps {
-  component: React.ComponentType<any>
-  layout: React.ComponentType<any>
-}
-
-const PrivateRouteWrapper: React.FC<PrivateRouteWrapperProps> = ({ component, layout }) => {
-  const isLoggedIn = false
-
-  return isLoggedIn ? (
-    React.createElement(layout, null, React.createElement(component))
-  ) : (
-    <Navigate to="/auth/login" />
-  )
-}
-
-const PublicRouteWrapper: React.FC<PrivateRouteWrapperProps> = ({ component, layout }) => {
-  const isLoggedIn = true
-
-  return isLoggedIn ? (
-    React.createElement(layout, null, React.createElement(component))
-  ) : (
-    <Navigate to="/home" />
   )
 }
 

@@ -6,7 +6,7 @@ import MainLayout from "../layouts/main/layout"
 
 export const mainRouteList = [
   {
-    path: "/home",
+    path: "/",
     component: Home,
     layout: MainLayout,
     isPrivate: true
