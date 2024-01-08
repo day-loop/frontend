@@ -1,8 +1,11 @@
+import { useAuth } from "./../../shared/auth/authContext"
 import React from "react"
 
 interface HomeProps {}
 
 export const Home: React.FC<HomeProps> = () => {
+  const { logout } = useAuth()
+
   return (
     <div className="flex flex-col w-full min-h-screen font-sans bg-white">
       <div>
@@ -39,12 +42,12 @@ export const Home: React.FC<HomeProps> = () => {
               </div>
             </div>
             <div className="hidden md:block">
-              <a
-                href="#"
+              <button
+                onClick={() => logout()}
                 className="inline-block py-1 mr-6 text-gray-500 md:py-4 hover:text-gray-600"
               >
-                Login
-              </a>
+                Logout
+              </button>
               <a
                 href="#"
                 className="inline-block px-4 py-2 text-gray-700 bg-white rounded-lg hover:bg-gray-100"

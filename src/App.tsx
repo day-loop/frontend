@@ -4,26 +4,29 @@ import { mainRouteList } from "./app/routes/mainRoutes"
 import "./App.scss"
 import PrivateRouteWrapper from "./app/shared/auth/PrivateRouteWrapper"
 import PublicRouteWrapper from "./app/shared/auth/PublicRouteWrapper"
+import { AuthProvider } from "./app/shared/auth/authContext"
 
 const App = () => {
   return (
-    <Router>
-      <Routes>
-        {mainRouteList.map((route, index: number) => (
-          <Route
-            key={index}
-            path={route.path}
-            element={
-              route.isPrivate ? (
-                <PrivateRouteWrapper component={route.component} layout={route.layout} />
-              ) : (
-                <PublicRouteWrapper component={route.component} layout={route.layout} />
-              )
-            }
-          />
-        ))}
-      </Routes>
-    </Router>
+    <AuthProvider>
+      <Router>
+        <Routes>
+          {mainRouteList.map((route, index: number) => (
+            <Route
+              key={index}
+              path={route.path}
+              element={
+                route.isPrivate ? (
+                  <PrivateRouteWrapper component={route.component} layout={route.layout} />
+                ) : (
+                  <PublicRouteWrapper component={route.component} layout={route.layout} />
+                )
+              }
+            />
+          ))}
+        </Routes>
+      </Router>
+    </AuthProvider>
   )
 }
 

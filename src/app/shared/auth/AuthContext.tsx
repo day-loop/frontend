@@ -11,7 +11,6 @@ export const AuthProvider = ({ children }: any) => {
   const [isLoggedIn, setLoggedIn] = useState(false)
 
   const login = () => {
-    // Burada gerçek giriş mekanizmanı olacak, örneğin API isteği gibi
     setLoggedIn(true)
   }
 
