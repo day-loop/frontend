@@ -8,16 +8,19 @@ export const mainRouteList = [
   {
     path: "/",
     component: Home,
-    layout: MainLayout
+    layout: MainLayout,
+    isPrivate: true
   },
   {
     path: "/auth/login",
     component: Login,
-    layout: AuthLayout
+    layout: AuthLayout,
+    isPrivate: false
   },
   {
     path: "*",
     component: Error404,
-    layout: AuthLayout
+    layout: AuthLayout,
+    isPrivate: false
   }
 ]
